@@ -25,6 +25,7 @@ class Browse
 
     def goto_login_page()
         @b.element(css: "[href='https://weblium.com/login']").click
+        self
     end
 
     def get_title()
@@ -35,18 +36,22 @@ class Browse
         set_email(email)
         set_pass(pass)
         click_login_button()
+        self
     end
 
     def set_email(email)
         @b.text_field(css: "#id5").set(email)
+        self
     end
 
     def set_pass(pass)
         @b.text_field(css: "#id9").set(pass)
+        self
     end
 
     def click_login_button()
         @b.element(css: "[type='submit']").click
+        self
     end
 
     def get_login_error_text()
@@ -55,19 +60,23 @@ class Browse
 
     def wait_app()
         @b.element(css: "#app").wait_until_present
+        self
     end
 
     def hover_goto_site_settings(index)
         hover_preview(index)
         @b.element(css: ".inline a", index: index).click
+        self
     end
 
     def hover_preview(index)
         @b.element(css: ".img-wrp", index: index).hover
+        self
     end
 
     def goto_site_settings(index)
         @b.element(css: ".inline a", index: index).click
+        self
     end
 
     def get_site_name_from_banner()
@@ -78,22 +87,27 @@ class Browse
         set_site_name(sitename)
         save_site_name()
         wait_changes_saved()
+        self
     end
 
     def set_site_name(sitename)
         @b.text_field(css: "#site").set(sitename)
+        self
     end
 
     def save_site_name()
         @b.element(css: "[title='Save changes']").click
+        self
     end
 
     def wait_changes_saved()
         @b.element(css: "[data-test='Changes saved']").wait_until_present
+        self
     end
 
     def goto_my_websites()
         @b.element(css: ".browser-ico").click
+        self
     end
 
     def check_site_name()
