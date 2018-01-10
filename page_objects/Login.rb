@@ -1,4 +1,4 @@
-class PageLogin
+class LoginPage
 
     def initialize(browser)
         @b = browser
@@ -29,7 +29,7 @@ class PageLogin
         set_email(email)
         set_pass(pass)
         click_login_button()
-        PageMywebsites.new(@b)
+        MywebsitesPage.new(@b)
     end
 
     def set_email(email)
@@ -50,5 +50,4 @@ class PageLogin
     def get_login_error_text()
         @b.element(css: "[data-test='sig-in-error']").wait_until_present.text
     end
-
 end

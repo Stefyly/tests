@@ -1,8 +1,8 @@
 require "Watir"
 require "RSpec"
-require_relative "funcLogin.rb"
-require_relative "funcSitesettings.rb"
-require_relative "funcMywebsites.rb"
+require "./page_objects/Login.rb"
+require "./page_objects/SiteSettings.rb"
+require "./page_objects/MyWebsites.rb"
 include ::RSpec::Matchers
 
 #Brows.new.ss(1)
@@ -32,25 +32,26 @@ include ::RSpec::Matchers
 # set_save_site_name(b, site_name)
 # expect(get_site_name_from_banner(b)).to eql(site_name)
 # b.close
+
+#rename clases
+#rename variables page_login -> login_page
 b = Watir::Browser.new :chrome
-page_login = PageLogin.new(b)
-page_login.goto('https://weblium.com/')
+login_page = LoginPage.new(b)
+login_page.goto('https://weblium.com/')
 expect(b.url).to eql("https://weblium.com/")
-page_login.goto_login_page
-expect(page_login.get_title).to eql("Log in")
-page_login.login("weblium1@gmail.com", 123124)
-expect(page_login.get_login_error_text).to eql("Invalid email or password")
-page_login.successful_login("weblium1@gmail.com", 123123)
-page_myaccount = PageMywebsites.new(b)
-page_myaccount.hover_goto_site_settings(1)
-page_sitesettings = PageSitesettings.new(b)
-expect(page_sitesettings.get_title).to eql("Manage general settings")
-site_name = page_sitesettings.get_site_name_from_banner()
-page_sitesettings.set_save_site_name(site_name + "_test")
-expect(page_sitesettings.get_site_name_from_banner).to eql(site_name + "_test")
-page_sitesettings.goto_my_websites()
-expect(page_myaccount.check_site_name).to eql(site_name + "_test")
-page_myaccount.hover_goto_site_settings(1)
-page_sitesettings.set_save_site_name(site_name)
-expect(page_sitesettings.get_site_name_from_banner).to eql(site_name)
+login_page.goto_login_page
+expect(login_page.get_title).to eql("Log in")
+login_page.login("weblium1@gmail.com", 123124)
+expect(login_page.get_login_error_text).to eql("Invalid email or password")
+sitesettings_page = login_page.successful_login("weblium1@gmail.com", 123123)
+                              .hover_goto_site_settings(1)
+expect(sitesettings_page.get_title).to eql("Manage general settings")
+site_name = sitesettings_page.get_site_name_from_banner()
+sitesettings_page.set_save_site_name(site_name + "_test")
+expect(sitesettings_page.get_site_name_from_banner).to eql(site_name + "_test")
+myaccount_page= sitesettings_page.goto_my_websites()
+expect(myaccount_page.check_site_name).to eql(site_name + "_test")
+myaccount_page.hover_goto_site_settings(1)
+sitesettings_page.set_save_site_name(site_name)
+expect(sitesettings_page.get_site_name_from_banner).to eql(site_name)
 b.close

@@ -1,4 +1,4 @@
-class PageMywebsites
+class MywebsitesPage
     
     def initialize(browser)
         @b = browser
@@ -12,7 +12,7 @@ class PageMywebsites
     def hover_goto_site_settings(index)
         hover_preview(index)
         @b.element(css: ".inline a", index: index).click
-        PageSitesettings.new(@b)
+        SitesettingsPage.new(@b)
     end
 
     def hover_preview(index)

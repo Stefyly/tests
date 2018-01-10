@@ -1,4 +1,4 @@
-class PageSitesettings
+class SitesettingsPage
 
     def initialize(browser)
         @b = browser
@@ -36,7 +36,7 @@ class PageSitesettings
 
     def goto_my_websites()
         @b.element(css: ".browser-ico").click
-        PageMywebsites.new(@b)
+        MywebsitesPage.new(@b)
     end
 
 end
