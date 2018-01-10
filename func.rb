@@ -12,7 +12,7 @@
 #         return @number_of_smth
 #     end
 # end
-class Browse
+class PageLogin
 
     def initialize(browser)
         @b = browser
@@ -39,6 +39,13 @@ class Browse
         self
     end
 
+    def successful_login(email, pass)
+        set_email(email)
+        set_pass(pass)
+        click_login_button()
+        PageMywebsites.new(@b)
+    end
+
     def set_email(email)
         @b.text_field(css: "#id5").set(email)
         self
@@ -58,6 +65,14 @@ class Browse
         @b.element(css: "[data-test='sig-in-error']").wait_until_present.text
     end
 
+end
+
+class PageMywebsites
+    
+    def initialize(browser)
+        @b = browser
+    end
+
     def wait_app()
         @b.element(css: "#app").wait_until_present
         self
@@ -66,7 +81,7 @@ class Browse
     def hover_goto_site_settings(index)
         hover_preview(index)
         @b.element(css: ".inline a", index: index).click
-        self
+        PageSitesettings.new(@b)
     end
 
     def hover_preview(index)
@@ -77,6 +92,22 @@ class Browse
     def goto_site_settings(index)
         @b.element(css: ".inline a", index: index).click
         self
+    end
+
+    def check_site_name()
+        @b.element(css: ".page-view__name", index: 1).text
+    end
+
+end
+
+class PageSitesettings
+
+    def initialize(browser)
+        @b = browser
+    end
+
+    def get_title()
+        @b.element(css: ".title").text
     end
 
     def get_site_name_from_banner()
@@ -107,12 +138,9 @@ class Browse
 
     def goto_my_websites()
         @b.element(css: ".browser-ico").click
-        self
+        PageMywebsites.new(@b)
     end
 
-    def check_site_name()
-        @b.element(css: ".page-view__name", index: 1).text
-    end
 end
 
 # def goto(b, url)
