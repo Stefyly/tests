@@ -1,6 +1,8 @@
 require "Watir"
 require "RSpec"
-require_relative "func.rb"
+require_relative "funcLogin.rb"
+require_relative "funcSitesettings.rb"
+require_relative "funcMywebsites.rb"
 include ::RSpec::Matchers
 
 #Brows.new.ss(1)
