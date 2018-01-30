@@ -36,14 +36,13 @@ describe ChangePassPage do
                          .logout
         expect(@b.url).to eql('https://weblium.co/login')
         #'login with api' do
-        code, response = @api.call_api('Test_S@weblium.com', '123124')
-        #response = RestClient.get('https://weblium.co/api/auth/login')  
+        code, response = @api.call_api('Test_S@weblium.com', '123124')  
         expect(code).to eql(200)
         expect(response['data']['username']).to eql('test_s@weblium.com')
         #'change pass to first version'
         @login_page.login('Test_S@weblium.com', '123124') 
         @myprofile_page.open_my_profile
-        @myprofile_page.open_change_pass
+                       .open_change_pass
         @change_pass_page.change_pass_valid_data(123124, 123123, 123123)
         code, response = @api.call_api('Test_S@weblium.com', '123123') 
         expect(code).to eql(200)
