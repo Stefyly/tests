@@ -78,7 +78,7 @@
 #         self
 #     end
 
-#     def hover_goto_site_settings(index)
+#     def open_site_settings(index)
 #         hover_preview(index)
 #         @b.element(css: ".inline a", index: index).click
 #         PageSitesettings.new(@b)
@@ -181,7 +181,7 @@
 # #     b.element(css: "#app").wait_until_present
 # # end
 
-# # def hover_goto_site_settings(b, index)
+# # def open_site_settings(b, index)
 # #     hover_preview(b, index)
 # #     b.element(css: ".inline a", index: index).click
 # # end
